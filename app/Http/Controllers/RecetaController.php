@@ -28,7 +28,9 @@ class RecetaController extends Controller
      */
     public function create()
     {
-        //
+
+        $categorias = Categoria::all();
+        return view('recetas.create')->with(['categorias' => $categorias]);
     }
 
     /**
@@ -39,7 +41,7 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

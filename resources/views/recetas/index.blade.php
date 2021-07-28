@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('botones')
+    <a href="{{ route('recetas.create') }}" class="btn btn-primary mr-2 text-white">Crear receta </a>
+@endsection
+
 @section('content')
     
 
@@ -15,11 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                
                     @foreach ($recetas as $receta)
-                        {{ $receta->name }}
+                    <tr>
+                        <td>
+                            {{ $receta->nombre }}
+                        </td>
+                    </tr>
                     @endforeach
-                </tr>
             </tbody>
         </table>
     </div>

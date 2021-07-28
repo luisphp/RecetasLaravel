@@ -21,3 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/recetas', [App\Http\Controllers\RecetaController::class, 'index'])->name('recetas');
+Route::get('/recetas/create', [App\Http\Controllers\RecetaController::class, 'create'])->name('recetas.create');
+Route::post('/recetas', [App\Http\Controllers\RecetaController::class, 'store'])->name('recetas.store');
