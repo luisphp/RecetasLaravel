@@ -10006,6 +10006,18 @@ body {
   font-family: "Didact Gothic", sans-serif;
 }
 
+trix-editor {
+  min-height: 500px;
+  height: 350px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+trix-editor .form-control {
+  min-height: 500px;
+  height: 350px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .bg-primary .navbar-brand {
   color: white;
 }

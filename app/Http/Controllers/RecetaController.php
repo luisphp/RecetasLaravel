@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Receta;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class RecetaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +42,7 @@ class RecetaController extends Controller
     {
 
         $categorias = Categoria::all();
+
         return view('recetas.create')->with(['categorias' => $categorias]);
     }
 
@@ -41,7 +54,36 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+       
+        // Validación
+        $data = request()->validate([
+            'titulo' => 'required|min:6',
+            'categoria' => 'required',
+            'preparacion' => 'required',
+            'ingredientes' => 'required',
+            'imagen' => 'required|image'
+        ]);
+
+        // Guardar la ruta de la imagen y definir el nombre de la ruta
+        //ruta de las imagens: C:\xampp\htdocs\RecetasLaravelUnico\public\storage
+        $ruta_imagen = $request['imagen']->store('upload-recetas', 'public');
+
+        // Resize de la imagen
+        $img = Image::make( public_path("storage/{$ruta_imagen}") )->fit(1000, 550);
+        $img->save();
+
+        // Insertar dator en la DB
+        DB::table('recetas')->insert([
+            'titulo' => $data['titulo'],
+            'categoria_id' => $data['categoria'],
+            'preparacion' => $data['preparacion'],
+            'ingredientes' => $data['ingredientes'],
+            'user_id' => Auth::user()->id,
+            'imagen' => $ruta_imagen
+        ]);
+
+        return back();
     }
 
     /**
