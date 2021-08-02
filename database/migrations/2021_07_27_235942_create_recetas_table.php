@@ -14,7 +14,7 @@ class CreateRecetasTable extends Migration
     public function up()
     {
 
-        Schema::create('categoria_receta', function (Blueprint $table) {
+        Schema::create('categoria_recetas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
@@ -33,7 +33,7 @@ class CreateRecetasTable extends Migration
             ->comment('El usuario que crea la receta');
 
             $table->foreignId('categoria_id')
-            ->constrained('categoria_receta')
+            ->constrained('categoria_recetas')
             ->onUpdate('cascade')
             ->onDelete('cascade')
             ->comment('La categoria de la receta');
@@ -50,6 +50,6 @@ class CreateRecetasTable extends Migration
     {
         
         Schema::dropIfExists('recetas');
-        Schema::dropIfExists('categoria_receta');
+        Schema::dropIfExists('categoria_recetas');
     }
 }

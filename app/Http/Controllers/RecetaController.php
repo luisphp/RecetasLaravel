@@ -15,7 +15,7 @@ class RecetaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['show']]);
     }
 
 
@@ -74,14 +74,24 @@ class RecetaController extends Controller
         $img->save();
 
         // Insertar dator en la DB
-        DB::table('recetas')->insert([
-            'titulo' => $data['titulo'],
-            'categoria_id' => $data['categoria'],
-            'preparacion' => $data['preparacion'],
-            'ingredientes' => $data['ingredientes'],
-            'user_id' => Auth::user()->id,
-            'imagen' => $ruta_imagen
-        ]);
+        // DB::table('recetas')->insert([
+        //     'titulo' => $data['titulo'],
+        //     'categoria_id' => $data['categoria'],
+        //     'preparacion' => $data['preparacion'],
+        //     'ingredientes' => $data['ingredientes'],
+        //     'user_id' => Auth::user()->id,
+        //     'imagen' => $ruta_imagen
+        // ]);
+
+            // Almacenar en la base de datos con modelo
+
+        Auth::user()->recetas()->create([
+                'titulo' => $data['titulo'],
+                'categoria_id' => $data['categoria'],
+                'preparacion' => $data['preparacion'],
+                'ingredientes' => $data['ingredientes'],
+                'imagen' => $ruta_imagen
+            ]);
 
         return back();
     }
@@ -92,9 +102,11 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Receta $receta)
     {
-        //
+        // $receta = Receta::where('id', $id)->get();
+
+        return view('recetas.show')->with(['receta' => $receta]);
     }
 
     /**
@@ -103,9 +115,11 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Receta $receta)
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('recetas.edit')->with(['receta'=>$receta, 'categorias'=>$categorias]);
     }
 
     /**
@@ -115,9 +129,40 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Receta $receta)
     {
-        //
+
+                //Luego de crear un policy lo implementamos para evitar que un usario solo pueda editar 
+                // las recetas cargadas por el
+
+                $this->authorize('update', $receta);
+
+                // Validación
+                $data = request()->validate([
+                    'titulo' => 'required|min:6',
+                    'categoria' => 'required',
+                    'preparacion' => 'required',
+                    'ingredientes' => 'required',
+                    'imagen' => 'required|image'
+                ]);
+
+                $receta->titulo = $data['titulo'];
+                $receta->categoria_id = $data['categoria'];
+                $receta->ingredientes = $data['ingredientes'];
+                $receta->preparacion = $data['preparacion'];
+                $receta->user_id = Auth::user()->id;
+
+                if($request['imagen']){
+                    $ruta_imagen = $request['imagen']->store('upload-recetas', 'public');
+
+                    $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
+                    $img->save();
+                    $receta->imagen = $ruta_imagen;
+                }
+
+                $receta->save();
+
+                return back();
     }
 
     /**
@@ -126,8 +171,17 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Receta $receta)
     {
-        //
+
+        // Le pasamos el policy para que los usuarios solo puedan eliminar sus recetas
+
+        $this->authorize('delete', $receta);
+
+
+        // // Eliminamos la receta una vez pasa la validacion del policy
+        $receta->delete();
+
+        return  'Receta '.$receta->nombre.' eliminada!';
     }
 }
