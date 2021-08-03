@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Perfil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PerfilController extends Controller
 {
@@ -46,7 +47,7 @@ class PerfilController extends Controller
      */
     public function show(Perfil $perfil)
     {
-        //
+        return view('perfil.show')->with(['perfil'=>$perfil]);
     }
 
     /**
@@ -57,7 +58,7 @@ class PerfilController extends Controller
      */
     public function edit(Perfil $perfil)
     {
-        //
+        return view('perfil.edit')->with(['perfil' => $perfil]);
     }
 
     /**
@@ -69,7 +70,38 @@ class PerfilController extends Controller
      */
     public function update(Request $request, Perfil $perfil)
     {
-        //
+
+        //Validar la informacion
+        $data = request()->validate([
+            'url' => 'required',
+            'biografia' => 'required',
+            'nombre' => 'required'
+        ]); 
+
+
+        //Verificar si el usuario sube una imagen
+
+
+
+        // Asignar nombre y URL
+        auth()->user()->url = $data['url'];
+        auth()->user()->name = $data['nombre'];
+        auth()->user()->save();
+
+
+        //Se debe hacer un unsert a las variables que ya no se van a usar de "data"
+        unset($data['url']);
+        unset($data['nombre']);
+        
+        // Luego procedemos a guardar la biografia en el perfil
+        auth()->user()->perfil()->update(
+            $data
+        );
+
+        // Guardar la informacion
+
+
+        return back();
     }
 
     /**

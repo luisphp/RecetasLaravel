@@ -5,7 +5,7 @@
 @endsection
 
 @section('botones')
-    <a  href="{{ route('recetas.create') }}" class="btn btn-primary mr-2 text-white">Crear receta </a>
+    <a  href="{{ route('recetas.index') }}" class="btn btn-primary mr-2 text-white">Crear receta </a>
 @endsection
 
 @section('content')
@@ -112,12 +112,13 @@
                         type="file"
                         class="form-control  @error('imagen') is-invalid @enderror "   
                         name="imagen"/>
+                        @error('imagen')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{$message}}</strong>    
+                            </span>
+                        @enderror  
                 </div>
-                @error('imagen')
-                    <span class="invalid-feedback d-block" role="alert">
-                        <strong>{{$message}}</strong>    
-                    </span>
-                @enderror   
+ 
 
                 {{-- boton para enviar el post de la receta --}}
                 <div class="form-group">

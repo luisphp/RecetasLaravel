@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 ->name('home');
 
+// Recetas
+
 Route::get('/recetas', [App\Http\Controllers\RecetaController::class, 'index'])
 ->name('recetas');
 
@@ -42,3 +44,14 @@ Route::put('/recetas/{receta}', [App\Http\Controllers\RecetaController::class, '
 
 Route::delete('/recetas/{receta}', [App\Http\Controllers\RecetaController::class, 'destroy'])
 ->name('recetas.delete');
+
+// Perfiles
+
+Route::get('/perfil/{perfil}', [App\Http\Controllers\PerfilController::class, 'show'])
+->name('perfil.show');
+
+Route::get('/perfil/{perfil}/edit', [App\Http\Controllers\PerfilController::class, 'edit'])
+->name('perfil.edit');
+
+Route::put('/perfil/{perfil}', [App\Http\Controllers\PerfilController::class, 'update'])
+->name('perfil.update');
