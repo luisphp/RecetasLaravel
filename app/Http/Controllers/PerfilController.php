@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PerfilController extends Controller
 {
@@ -80,7 +82,20 @@ class PerfilController extends Controller
 
 
         //Verificar si el usuario sube una imagen
+        if($request['imagen']){
+            
+            // Guardar la ruta de la imagen y definir el nombre de la ruta
+            //ruta de las imagens: C:\xampp\htdocs\RecetasLaravelUnico\public\storage
+            $ruta_imagen = $request['imagen']->store('upload-perfiles', 'public');
 
+            // Resize de la imagen
+            $img = Image::make( public_path("storage/{$ruta_imagen}") )->fit(600, 600);
+            $img->save();
+
+            //Crear un arreglo de imagen
+            $array_imagen = ['imagen' => $ruta_imagen];
+    
+        }
 
 
         // Asignar nombre y URL
@@ -94,8 +109,8 @@ class PerfilController extends Controller
         unset($data['nombre']);
         
         // Luego procedemos a guardar la biografia en el perfil
-        auth()->user()->perfil()->update(
-            $data
+        auth()->user()->perfil()->update( 
+            array_merge($data,   $array_imagen ?? [] )
         );
 
         // Guardar la informacion
