@@ -55,3 +55,8 @@ Route::get('/perfil/{perfil}/edit', [App\Http\Controllers\PerfilController::clas
 
 Route::put('/perfil/{perfil}', [App\Http\Controllers\PerfilController::class, 'update'])
 ->name('perfil.update');
+
+// Likes //Almacena los likes de las recetas
+
+Route::post('/like/{receta}', [App\Http\Controllers\LikesController::class, 'update'])
+->name('like.update');

@@ -31,6 +31,7 @@ class PerfilPolicy
     public function view(User $user, Perfil $perfil)
     {
         //
+        return $user->id === $perfil->user_id;
     }
 
     /**
@@ -53,7 +54,9 @@ class PerfilPolicy
      */
     public function update(User $user, Perfil $perfil)
     {
-        //
+        //Revisa que el usuario autenticado es el que desea modificar el perfil
+
+        return $user->id === $perfil->user_id;
     }
 
     /**

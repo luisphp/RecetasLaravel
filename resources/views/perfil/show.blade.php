@@ -4,6 +4,8 @@
 
     {{-- <h1>Perfil del usuario:   {{$perfil->usuario->name}}</h1> --}}
 
+    
+
 
     <div class="container mt-3">
         <div class="row">
@@ -20,8 +22,41 @@
                 </div>               
             </div>            
         </div>
-        <a href="{{ route('perfil.edit',['perfil' => Auth::user()->id ])  }}" class="btn btn-secondary mr-2 text-white">Editar Mi perfil </a>
 
     </div>
+
+    @if ( count($recetas)  > 0)
+    <h2 class="text-center my-5">Recetas creadas:</h2>
+
+    <div class="container">
+        <div class="row mx-auto bg-white p-4">
+
+                    
+            @foreach ($recetas as $receta)
+                <div class="col-md-3 m-1 mx-auto">
+                    <div class="card ">
+                        <img src="../storage/{{$receta->imagen}}" class="card-img-top" alt="{{$receta->titulo}}">
+                        <div class="card-body">
+                            <h3>{{$receta->titulo}}</h3>
+
+                            <a class="btn btn-primary d-block mt-4 text-uppercase" href="{{route('recetas.show', ['receta' => $receta->id])}}">Ver más</a> 
+                        </div>
+                        
+                    </div>
+                </div>
+            @endforeach
+
+                
+        </div>
+        <div class="d-flex justify-content-center">
+            {{$recetas}}
+        </div>
+    </div>
+
+    @else
+
+    <p class="text-center my-5">Aún no ha añadido ninguna receta</p>
+
+    @endif
     
 @endsection

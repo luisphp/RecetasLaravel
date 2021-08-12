@@ -25,6 +25,7 @@ Vue.config.ignoredElements = ['trix-editor', 'trix-toolbar'];
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('fecha-receta', require('./components/FechaRecetaComponent.vue').default);
 Vue.component('eliminar-receta', require('./components/EliminarRecetaComponent.vue').default);
+Vue.component('like-button', require('./components/LikeButtonComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

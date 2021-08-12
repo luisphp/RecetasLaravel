@@ -47,17 +47,13 @@
                     @endforeach
             </tbody>
         </table>
+        <div class="col-md-12">
+            {{$recetas->onEachSide(5)->links()}}
+        </div>
+        
     </div>
 
-{{--     
-    
-    
-    <br>
-    
-    <h1>Categorias</h1>
-    @foreach ($categorias as $categoria)
-        {{ $categoria->name }} <br>
-    @endforeach --}}
+
     
     @endsection
 

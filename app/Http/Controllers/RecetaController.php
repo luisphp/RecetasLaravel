@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Pagination\Paginator;
 
 
 class RecetaController extends Controller
@@ -27,7 +28,7 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        $recetas = Receta::all();
+        $recetas = Receta::where('user_id', '=', Auth::user()->id)->paginate(5);
         $categorias = Categoria::all();
 
         return view('recetas.index')->with(['categorias' => $categorias, 'recetas' => $recetas]);
@@ -104,9 +105,16 @@ class RecetaController extends Controller
      */
     public function show(Receta $receta)
     {
-        // $receta = Receta::where('id', $id)->get();
+        //Obtener si a el usuario le gusta la receta y esta autenticado
 
-        return view('recetas.show')->with(['receta' => $receta]);
+        $like = (Auth::user() ? Auth::user()->meGusta->contains($receta->id)  : false);
+
+
+        //Pasa la cantidad de likes
+        $like_quantity = $receta->likes->count();
+
+        return view('recetas.show')
+        ->with(['receta' => $receta, 'like' => $like, 'like_quantity' => $like_quantity]);
     }
 
     /**
@@ -117,6 +125,8 @@ class RecetaController extends Controller
      */
     public function edit(Receta $receta)
     {
+        $this->authorize('view', $receta);
+
         $categorias = Categoria::all();
 
         return view('recetas.edit')->with(['receta'=>$receta, 'categorias'=>$categorias]);

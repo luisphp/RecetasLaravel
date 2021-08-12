@@ -39,4 +39,10 @@ class Receta extends Model
     {
         return $this->belongsTo(user::class, 'user_id');
     }
+
+    //likes que ha recibido la receta
+    public function likes ()
+    {
+        return $this->belongsToMany(User::class, 'likes_receta');
+    }
 }
