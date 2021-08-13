@@ -2,7 +2,7 @@
 
 <div>
         <div>
-        <span class="like-btn" @click="likeReceta" :class="{ 'like-active' : this.like == 1 }">  </span> ( {{totalLikes}} )
+        <span class="like-btn" @click="likeReceta" :class="{ 'like-active' : isActive }">  </span> ( {{totalLikes}} )
         </div>
 </div>
 
@@ -14,6 +14,7 @@ export default {
     props: ['recetaid', 'like', 'likequantity'],
     data() {
       return {
+        isActive: this.like,
         totalLikes :   this.likequantity
       }
     },
@@ -40,9 +41,15 @@ export default {
           }else{
             this.totalLikes--;
           }
+
+          this.isActive = !isActive;
+
         })
         .catch(err => {
-          cosole.log(err);
+          // cosole.log(err);
+          if(err.response.status  === 401){
+            window.location = '../register';
+          }
         })
 
 

@@ -7,11 +7,11 @@
 export default {
     props: ['fecha'],
     mounted(){
-        console.log('Se monto el componente');
+        // console.log('Se monto el componente');
     },
     computed: {
         formatearFecha(){
-            console.log('FECHA>>>', moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY') )
+            // console.log('FECHA>>>', moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY') )
             return moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY');
         }
     }

@@ -1965,12 +1965,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['fecha'],
-  mounted: function mounted() {
-    console.log('Se monto el componente');
+  mounted: function mounted() {// console.log('Se monto el componente');
   },
   computed: {
     formatearFecha: function formatearFecha() {
-      console.log('FECHA>>>', moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY'));
+      // console.log('FECHA>>>', moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY') )
       return moment(this.fecha).locale('es').format('DD [de] MM [del] YYYY');
     }
   }
@@ -2004,6 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['recetaid', 'like', 'likequantity'],
   data: function data() {
     return {
+      isActive: this.like,
       totalLikes: this.likequantity
     };
   },
@@ -2029,8 +2029,13 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           _this.totalLikes--;
         }
+
+        _this.isActive = !isActive;
       })["catch"](function (err) {
-        cosole.log(err);
+        // cosole.log(err);
+        if (err.response.status === 401) {
+          window.location = '../register';
+        }
       });
     }
   }
@@ -62913,7 +62918,7 @@ var render = function() {
     _c("div", [
       _c("span", {
         staticClass: "like-btn",
-        class: { "like-active": this.like == 1 },
+        class: { "like-active": _vm.isActive },
         on: { click: _vm.likeReceta }
       }),
       _vm._v(" ( " + _vm._s(_vm.totalLikes) + " )\r\n        ")
