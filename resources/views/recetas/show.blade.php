@@ -3,7 +3,7 @@
 @section('content')
     
     
-    <article class="contenido-receta">
+    <article class="contenido-receta animate__animated animate__fadeIn">
         <h1 class="text-center mb-4"> {{$receta->titulo}} </h1>
 
         <div class="imagen-receta mt-2">
@@ -48,8 +48,6 @@
             likequantity ="{{$like_quantity}}"
         ></like-button>
         </div>
-        
-
     </article>
 @endsection
 

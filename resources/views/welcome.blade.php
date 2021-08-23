@@ -12,7 +12,7 @@
 
 @section('content')
 
-  <div class="col-md-12">
+  <div class="col-md-12 animate__animated animate__fadeIn">
     <form action="{{ route('recetas.buscar') }}">
       @csrf
       <h5>
@@ -22,11 +22,11 @@
     </form>
   </div>
 
-    <h2 class="titulo-categoria text-uppercase mt-5 mb-4">
+    <h2 class="titulo-categoria text-uppercase mt-5 mb-4 animate__animated animate__fadeIn">
         Últimas recetas añadidas:
     </h2>
 
-    <div class="content">
+    <div class="content animate__animated animate__fadeIn">
       <div class="owl-carousel owl-theme">
         @foreach ($recetas as $receta)
         
