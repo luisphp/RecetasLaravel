@@ -31,13 +31,7 @@
                         <td>
                             <a class="btn btn-primary d-block mb-1" href="{{ route('recetas.show', ['receta' => $receta->id]) }}" >Ver</a>
                             <a class="btn btn-secondary d-block mb-1" href="{{ route('recetas.edit', ['receta' => $receta->id]) }}">Editar</a>
-                            {{-- <form class="d-block w-100" action="{{ route('recetas.delete' , ['receta'=> $receta->id]) }}" method="POST"  >
-                                @method('DELETE') @csrf --}}
-                                {{-- <input 
-                                    type="submit" 
-                                    class="btn btn-warning d-block w-100  mb-1"
-                                    value="Eliminar &times;"/> --}}
-                            {{-- </form> --}}
+
                             <eliminar-receta
                                 receta="{{$receta->id}}"
                                 ></eliminar-receta>

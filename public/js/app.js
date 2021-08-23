@@ -1988,6 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 //
 //
 //
@@ -2058,6 +2059,8 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+// import 'owl.carousel';
+// import jQuery from 'jquery';
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -2087,7 +2090,25 @@ Vue.component('like-button', __webpack_require__(/*! ./components/LikeButtonComp
 
 var app = new Vue({
   el: '#app'
-});
+}); // jQuery(document).ready(function () {
+//   jQuery('.owl-carousel').owlCarousel({
+//     margin: 10,
+//     loop: true,
+//     autoplay: true,
+//     autoplayHoverPause: true,
+//     responsive: {
+//       0: {
+//         items: 1,
+//       },
+//       600: {
+//         items: 2,
+//       },
+//       1000: {
+//         items: 3,
+//       },
+//     },
+//   });
+// });
 
 /***/ }),
 

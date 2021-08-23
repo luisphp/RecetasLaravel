@@ -59,3 +59,7 @@ Route::put('/perfil/{perfil}', [App\Http\Controllers\PerfilController::class, 'u
 
 Route::post('/like/{receta}', [App\Http\Controllers\LikesController::class, 'update'])
 ->name('like.update');
+
+// Categorias
+Route::get('/categoria/{categoriaReceta}', [App\Http\Controllers\CategoriasController::class, 'show'])
+->name('categorias.show');

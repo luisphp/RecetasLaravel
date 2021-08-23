@@ -74,6 +74,8 @@ class RecetaController extends Controller
             'imagen' => 'required|image'
         ]);
 
+
+        // dd($request);
         // Guardar la ruta de la imagen y definir el nombre de la ruta
         //ruta de las imagens: C:\xampp\htdocs\RecetasLaravelUnico\public\storage
         $ruta_imagen = $request['imagen']->store('upload-recetas', 'public');
@@ -83,24 +85,24 @@ class RecetaController extends Controller
         $img->save();
 
         // Insertar dator en la DB
-        // DB::table('recetas')->insert([
-        //     'titulo' => $data['titulo'],
-        //     'categoria_id' => $data['categoria'],
-        //     'preparacion' => $data['preparacion'],
-        //     'ingredientes' => $data['ingredientes'],
-        //     'user_id' => Auth::user()->id,
-        //     'imagen' => $ruta_imagen
-        // ]);
+        DB::table('recetas')->insert([
+            'titulo' => $data['titulo'],
+            'categoria_id' => $data['categoria'],
+            'preparacion' => $data['preparacion'],
+            'ingredientes' => $data['ingredientes'],
+            'user_id' => Auth::user()->id,
+            'imagen' => $ruta_imagen
+        ]);
 
             // Almacenar en la base de datos con modelo
 
-        Auth::user()->recetas()->create([
-                'titulo' => $data['titulo'],
-                'categoria_id' => $data['categoria'],
-                'preparacion' => $data['preparacion'],
-                'ingredientes' => $data['ingredientes'],
-                'imagen' => $ruta_imagen
-            ]);
+        // Auth::user()->recetas()->create([
+        //         'titulo' => $data['titulo'],
+        //         'categoria_id' => $data['categoria'],
+        //         'preparacion' => $data['preparacion'],
+        //         'ingredientes' => $data['ingredientes'],
+        //         'imagen' => $ruta_imagen
+        //     ]);
 
         return back();
     }
@@ -161,8 +163,10 @@ class RecetaController extends Controller
                     'categoria' => 'required',
                     'preparacion' => 'required',
                     'ingredientes' => 'required',
-                    'imagen' => 'required|image'
+                    // 'imagen' => 'required|image'
                 ]);
+
+                // return $request;
 
                 $receta->titulo = $data['titulo'];
                 $receta->categoria_id = $data['categoria'];

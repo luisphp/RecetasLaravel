@@ -45,16 +45,18 @@
                         class="form-control @error('titulo') is-invalid @enderror "
                         id="categoria"
                         >
-                            <option selected disabled> -- Seleccione un valor -- </option>
+                            
                             @foreach ($categorias as $id => $categoria)
                                 <option 
                                     value="{{$id}}" 
                                     {{ old('categoria') == $id ? 'selected' : '' }} 
                                     > 
                                         {{$categoria->nombre}} 
-                                    </option>
+                                </option>
                             @endforeach
+                            <option selected disabled> -- Seleccione un valor -- </option>
                         <select>
+                            {{-- {{$categorias}} --}}
 
                         @error('categoria')
                             <span class="invalid-feedback d-block" role="alert">

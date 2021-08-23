@@ -47,15 +47,16 @@
                         class="form-control @error('titulo') is-invalid @enderror "
                         id="categoria"
                         >
-                            <option selected disabled> -- Seleccione un valor -- </option>
+                            
                             @foreach ($categorias as $id => $categoria)
                                 <option 
-                                    value="{{$id}}" 
-                                    {{ $receta->categoria_id == $id ? 'selected' : '' }} 
+                                    value="{{$categoria->id}}" 
+                                    {{ $receta->categoria_id == $categoria->id ? 'selected' : '' }} 
                                     > 
                                         {{$categoria->nombre}} 
                                     </option>
                             @endforeach
+                            {{-- <option selected disabled> -- Seleccione un valor -- </option> --}}
                         <select>
 
                         @error('categoria')
