@@ -11,7 +11,7 @@ class InicioController extends Controller
 {
     public function index(){
 
-        $recetas = Receta::orderby('created_at', 'desc')->take(5)->get();
+        $recetas = Receta::orderby('created_at', 'ASC')->take(5)->get();
 
         $categorias = Categoria::all();
 

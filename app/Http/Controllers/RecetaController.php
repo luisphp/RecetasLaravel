@@ -16,7 +16,7 @@ class RecetaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['show']]);
+        $this->middleware('auth',['except' => ['show', 'search']]);
     }
 
 
@@ -205,5 +205,19 @@ class RecetaController extends Controller
         $receta->delete();
 
         return  'Receta '.$receta->nombre.' eliminada!';
+    }
+
+    public function search(Request $request)
+    {
+        $busqueda = $request['buscar'];
+
+        $resultados = Receta::where('titulo', 'like', '%'.$busqueda.'%')->get();
+
+        // dd($resultados);
+
+        return view('busquedas.show')
+        ->with(['resultados' => $resultados, 
+                'busqueda' => $busqueda]);
+
     }
 }

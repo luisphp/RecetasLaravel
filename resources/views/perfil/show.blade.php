@@ -2,11 +2,6 @@
 
 @section('content')
 
-    {{-- <h1>Perfil del usuario:   {{$perfil->usuario->name}}</h1> --}}
-
-    
-
-
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-5">
@@ -16,10 +11,15 @@
                 <h2 class="text-center mb-2 text-primary">
                     {{$perfil->usuario->name}}
                 </h2>
-                <a  href="{{$perfil->usuario->url}}">Visitar URL</a> 
+                <a  href="{!! $perfil->usuario->url !!}">Visitar URL</a> 
                 <div class="biografia">
                     {!! $perfil->biografia !!}    
-                </div>               
+                </div>
+                {{-- @guest
+                <div class="mt-3">
+                    <a class="btn btn-outline-primary" href="{{ route('perfil.edit', ['perfil' => Auth::id()])}}">Editar mi perfil</a>
+                </div>
+                @endguest                --}}
             </div>            
         </div>
 

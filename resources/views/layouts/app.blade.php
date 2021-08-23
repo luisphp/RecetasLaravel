@@ -66,6 +66,9 @@
                                     <a class="dropdown-item" href="{{ route('perfil.show',['perfil' => Auth::user()->id ])  }}">
                                         Ver mi Perfil
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('recetas')  }}">
+                                        Mis recetas
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -8,9 +8,22 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 @endsection
 
+
+
 @section('content')
+
+  <div class="col-md-12">
+    <form action="{{ route('recetas.buscar') }}">
+      @csrf
+      <h5>
+        Encuentra una receta para tu próxima comida
+      </h5>
+      <input type="search" name="buscar" class="form-control" placeholder="cual receta estas buscando?">
+    </form>
+  </div>
+
     <h2 class="titulo-categoria text-uppercase mt-5 mb-4">
-        Últimas recetas:
+        Últimas recetas añadidas:
     </h2>
 
     <div class="content">
@@ -20,28 +33,28 @@
             <div class="card shadow mb-4">
                 <img src="./storage/{{$receta->imagen}}" alt="imagen_receta" class="card-img-top">
             
-            <div class="card-body">
-              <h3>{{$receta->titulo}}</h3>
+              <div class="card-body">
+                <h3>{{$receta->titulo}}</h3>
 
-              <p class="">{!!  Str::words( strip_tags($receta->preparacion), 20 ) !!}</p>
+                <p class="">{!!  Str::words( strip_tags($receta->preparacion), 20 ) !!}</p>
 
-              <a class="btn btn-outline-primary text-uppercase d-block" href="{{route('recetas.show', ['receta' => $receta->id])}}">Ver</a>
-            </div> 
+                <a class="btn btn-outline-primary text-uppercase d-block" href="{{route('recetas.show', ['receta' => $receta->id])}}">Ver</a>
+              </div> 
             </div>
-
         @endforeach
-
       </div>
       
         @foreach ($recetaCategory as $key => $grupo)
-            <div class="container">
-                <h2 class="titulo_categoria text-uppercase mt-5 mb-4">{{ str_replace('-',' ', $key) }}</h2>
+        <div class="container">
+          <h2 class="titulo_categoria text-uppercase mt-5 mb-4">{{ str_replace('-',' ', $key) }}</h2>
+                <div class="row">
+
                 
               @foreach ($grupo as $recetasCat)
                   {{-- {{$recetaCat}} --}}
 
                   @foreach ($recetasCat as $item)
-                    <div class="col-md-4 mt-4">
+                    <div class="col-md-4 mt-4">                      
                       <div class="card shadow">
                         <img src="./storage/{{$item->imagen}}" alt="imagen_receta" class="card-img-top">
                         <h3>{{$item->titulo}}</h3>
@@ -57,11 +70,9 @@
                     </div>
 
                   @endforeach
-
-
               @endforeach
-
             </div>
+          </div>
         @endforeach
     </div>
 

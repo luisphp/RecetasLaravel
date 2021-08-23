@@ -58,7 +58,7 @@ class PerfilController extends Controller
     {
         //Obtener las recetas con paginacion
 
-        $recetas = Receta::where('user_id', '=' , Auth::user()->id)->paginate(10);
+        $recetas = Receta::where('user_id', '=' , $perfil['id'] )->paginate(10);
 
         return view('perfil.show')->with(['perfil'=>$perfil, 'recetas' => $recetas]);
     }

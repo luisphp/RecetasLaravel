@@ -63,3 +63,7 @@ Route::post('/like/{receta}', [App\Http\Controllers\LikesController::class, 'upd
 // Categorias
 Route::get('/categoria/{categoriaReceta}', [App\Http\Controllers\CategoriasController::class, 'show'])
 ->name('categorias.show');
+
+//Buscardor de recetas
+Route::get('/buscar', [App\Http\Controllers\RecetaController::class, 'search'] )
+->name('recetas.buscar');
