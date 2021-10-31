@@ -152,39 +152,39 @@ class RecetaController extends Controller
     public function update(Request $request, Receta $receta)
     {
 
-                //Luego de crear un policy lo implementamos para evitar que un usario solo pueda editar 
-                // las recetas cargadas por el
+        //Luego de crear un policy lo implementamos para evitar que un usario solo pueda editar 
+        // las recetas cargadas por el
 
-                $this->authorize('update', $receta);
+        $this->authorize('update', $receta);
 
-                // Validación
-                $data = request()->validate([
-                    'titulo' => 'required|min:6',
-                    'categoria' => 'required',
-                    'preparacion' => 'required',
-                    'ingredientes' => 'required',
-                    // 'imagen' => 'required|image'
-                ]);
+        // Validación
+        $data = request()->validate([
+            'titulo' => 'required|min:6',
+            'categoria' => 'required',
+            'preparacion' => 'required',
+            'ingredientes' => 'required',
+            // 'imagen' => 'required|image'
+        ]);
 
-                // return $request;
+        // return $request;
 
-                $receta->titulo = $data['titulo'];
-                $receta->categoria_id = $data['categoria'];
-                $receta->ingredientes = $data['ingredientes'];
-                $receta->preparacion = $data['preparacion'];
-                $receta->user_id = Auth::user()->id;
+        $receta->titulo = $data['titulo'];
+        $receta->categoria_id = $data['categoria'];
+        $receta->ingredientes = $data['ingredientes'];
+        $receta->preparacion = $data['preparacion'];
+        $receta->user_id = Auth::user()->id;
 
-                if($request['imagen']){
-                    $ruta_imagen = $request['imagen']->store('upload-recetas', 'public');
+        if($request['imagen']){
+            $ruta_imagen = $request['imagen']->store('upload-recetas', 'public');
 
-                    $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
-                    $img->save();
-                    $receta->imagen = $ruta_imagen;
-                }
+            $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
+            $img->save();
+            $receta->imagen = $ruta_imagen;
+        }
 
-                $receta->save();
+        $receta->save();
 
-                return back();
+        return back();
     }
 
     /**
